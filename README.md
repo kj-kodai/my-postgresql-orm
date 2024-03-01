@@ -5,3 +5,8 @@ Steps to run this project:
 1. Run `npm i` command
 2. Setup database settings inside `data-source.ts` file
 3. Run `npm start` command
+
+
+https://github.com/typeorm/typeorm
+
+https://www.postgresqltutorial.com/postgresql-tutorial/postgresql-drop-table/
