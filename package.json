@@ -11,7 +11,8 @@
    "dependencies": {
       "typeorm": "0.3.20",
       "reflect-metadata": "^0.1.13",
-      "pg": "^8.4.0"
+      "pg": "^8.4.0",
+      "bcrypt": "^5.1.1"
    },
    "scripts": {
       "start": "ts-node src/index.ts",
