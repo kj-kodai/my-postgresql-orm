@@ -1,5 +1,5 @@
 import { AppDataSource } from "./data-source"
-import { People, User, Customer, Invoice } from "./entity/User"
+import { People, User, Customer, Invoice, Revenue } from "./entity/User"
 import { users, customers, revenue, invoices } from './migration/placeholder-data';
 import bcrypt = require('bcrypt');
 
@@ -17,28 +17,11 @@ AppDataSource.initialize().then(async () => {
     // const users = await AppDataSource.manager.find(User)
     // console.log("Loaded users: ", users)
 
-    // // Clean up existing seed users.
-    // const usersToBeDeleted = await AppDataSource.manager.find(User);
-    // await AppDataSource.manager.remove(usersToBeDeleted);
-
-    // // Seed users.
-    // const insertedUsers = await Promise.all(
-    //   users.map(async (user) => {
-    //     const hashedPassword = await bcrypt.hash(user.password, 10);
-    //     const mappedUser = new User();
-    //     mappedUser.name = user.name;
-    //     mappedUser.email = user.email;
-    //     mappedUser.password = hashedPassword;
-    //     await AppDataSource.manager.save(mappedUser);
-    //   }),
-    // );
-
-    // console.log(`Seeded ${insertedUsers.length} users`);
-
-    // await seedUsers();
-    // await seedCustomers();
+    await seedUsers();
+    await seedCustomers();
 
     await seedInvoices();
+    await seedRevenue();
 
     // console.log("Here you can setup and run express / fastify / any other framework.")
 
@@ -112,10 +95,26 @@ async function seedInvoices() {
         mappedInvoice.amount = invoice.amount;
         mappedInvoice.status = invoice.status;
         mappedInvoice.date = invoice.date;
-        console.log('Invoice: ', mappedInvoice.customer_id);
+        // console.log('Invoice: ', mappedInvoice.customer_id);
         await AppDataSource.manager.save(mappedInvoice);
       }),
     );
 
     console.log(`Seeded ${insertedInvoices.length} invoices`);
+}
+
+async function seedRevenue() {
+    const revenueToBeDeleted = await AppDataSource.manager.find(Revenue);
+    await AppDataSource.manager.remove(revenueToBeDeleted);
+
+    const insertedRevenue = await Promise.all(
+      revenue.map(async (revenue) => {
+        const mappedRevenue = new Revenue();
+        mappedRevenue.month = revenue.month;
+        mappedRevenue.revenue = revenue.revenue;
+        await AppDataSource.manager.save(mappedRevenue);
+      }),
+    );
+
+    console.log(`Seeded ${insertedRevenue.length} revenue`);
 }

@@ -70,3 +70,15 @@ export class Invoice {
     @Column()
     status: string
 }
+
+@Entity({ name: "revenue", schema: "nextjs" })
+export class Revenue {
+    @PrimaryGeneratedColumn()
+    id: number
+    
+    @Column()
+    month: string
+
+    @Column()
+    revenue: number
+}
