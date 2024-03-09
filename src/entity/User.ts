@@ -16,22 +16,6 @@ export class User {
     password: string
 }
 
-@Entity()
-export class People {
-
-    @PrimaryGeneratedColumn()
-    id: number
-
-    @Column()
-    firstName: string
-
-    @Column()
-    lastName: string
-
-    @Column()
-    age: number
-}
-
 @Entity({ name: "customers", schema: "nextjs" })
 export class Customer {
 
@@ -75,7 +59,7 @@ export class Invoice {
 export class Revenue {
     @PrimaryGeneratedColumn()
     id: number
-    
+
     @Column()
     month: string
 
